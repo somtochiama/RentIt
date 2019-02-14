@@ -16,7 +16,7 @@ const postSuscriber = (req, res) => {
   console.log(email)
   pool.query('SELECT * FROM subscribers WHERE email = $1', [email], (error, results) => {
       if (error) {
-          throw error
+          res.status(500).json({error})
       }
       if(results.rows.length > 0) {
           res.status(500).json({ message: "You mail is already on our list!"})
