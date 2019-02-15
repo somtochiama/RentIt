@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    height: auto;
+}
+
+input {
+    width: 100%;
+    border: 1px solid #C4C4C4;
+    height: 20px;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+h2 {
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 10px;
+    width: 40%;
+    /* height: 350px ; */
+    padding: 20px;
+}
+
+button {
+    color: white;
+    background-color: #66DBB7;
+    border: 1px solid #66DBB7;
+    border-radius: 4px;
+    width: 130px;
+    height: 41px;
+    margin: 10px auto;
+  }
