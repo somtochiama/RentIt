@@ -1,9 +1,80 @@
-const { Pool } = require('pg');
+const { Pool, Client } = require('pg');
 const dotenv = require('dotenv');
+const {adminTable, suscriberTable, reviewsTable, propertyTable, ownerTable } = require('./schema')
+const connectionString = process.env.DATABASE_URL;
+// console.log(process.env.DATABASE_URL)
 
 dotenv.config();
 
-const pool = new Pool({
+const client = new Client();
+
+// const { Pool } = require('pg');
+
+// const dotenv = require('dotenv');
+
+dotenv.config();
+
+const pool = new Pool();
+
+const query = function (text, params){
+  return new Promise((resolve, reject) => {
+    pool.query(text, params)
+    .then((res) => {
+      resolve(res);
+    })
+    .catch((err) => {
+      reject(err);
+    })
+  })
+}
+
+
+const createTables = async () => {
+  try{
+      await client.connect();
+      await client.query(adminTable);
+      await client.query(reviewsTable);
+      await client.query(ownerTable);
+      await client.query(propertyTable);
+      await client.query(suscriberTable);
+      await client.end()
+      console.log('Tables created successfully');
+      process.exit(0)
+  }catch(e){
+      console.log('Something bad happened', e)
+  }
+  
+}
+
+const dropTables = async () => {
+  await client.connect();
+  await client.query('DROP TABLE IF EXISTS admins;');
+  console.log('DROPPED TABLE admins')
+
+  await client.query('DROP TABLE IF EXISTS houses;');
+  console.log('DROPPED TABLE houses');
+
+  await client.query('DROP TABLE IF EXISTS owners;');
+  console.log('DROPPED TABLE owners');
+
+  await client.query('DROP TABLE IF EXISTS reviews;');
+  console.log('DROPPED TABLE reviews');
+
+  await client.query('DROP TABLE IF EXISTS subscribers;');
+  console.log('DROPPED TABLE subscribers')
+  process.exit(0);
+}
+
+module.exports = {
+  createTables,
+  dropTables,
+  pool,
+  query
+}
+
+require('make-runnable')
+
+/* const pool = new Pool({
   connectionString: process.env.DATABASE_URL
 });
 
@@ -12,77 +83,27 @@ pool.on('connect', () => {
 });
 
 
-const queryText =
-  `CREATE TABLE IF NOT EXISTS
-    admins(
-      id SERIAL PRIMARY KEY ,
-      email VARCHAR(128) NOT NULL,
-      password VARCHAR(128) NOT NULL,
-      salt VARCHAR(128) NOT NULL,
-      created_date TIMESTAMP DEFAULT NOW()
-    )`;
-  
-
-pool.query(queryText, (err, res) => {
-  // console.log(err, res);
+pool.query(adminTable, (err, res) => {
+  console.log(err, res);
 });
 
-const queryText1 =
-  `CREATE TABLE IF NOT EXISTS
-    subscribers(
-      id SERIAL PRIMARY KEY ,
-      email VARCHAR(128) NOT NULL UNIQUE,
-      created_date TIMESTAMP DEFAULT NOW()
-    )`;
-
-pool.query(queryText1, (err, res) => {
-// console.log(err, res);
+pool.query(suscriberTable, (err, res) => {
+  console.log(err, res);
 
 });
 
-const queryText2=
-  `CREATE TABLE IF NOT EXISTS
-    reviews(
-      id SERIAL PRIMARY KEY ,
-      rating FLOAT(10) NOT NULL,
-      review VARCHAR(400) NOT NULL,  
-      suggestion VARCHAR(400),
-      created_date TIMESTAMP DEFAULT NOW()
-    )`;
 
-pool.query(queryText2, (err, res) => {
+pool.query(reviewsTable, (err, res) => {
   console.log(err, res);
 });
 
 
-const queryText3=
-  `CREATE TABLE IF NOT EXISTS
-    owner(
-      id SERIAL PRIMARY KEY ,
-      email VARCHAR(128) NOT NULL UNIQUE,
-      phone_number INTEGER NOT NULL,
-      created_date TIMESTAMP DEFAULT NOW()
-    )`;
-
-pool.query(queryText3, (err, res) => {
+pool.query(ownerTable, (err, res) => {
   console.log(err, res);
 });
 
-const queryText4 =
-  `CREATE TABLE IF NOT EXISTS
-    property(
-      id SERIAL PRIMARY KEY ,
-      location VARCHAR(128) NOT NULL ,
-      description VARCHAR(225) NOT NULL,
-      status VARCHAR(128) NOT NULL,
-      address VARCHAR(225) NOT NULL,
-      price INTEGER NOT NULL,
-      type VARCHAR(128) NOT NULL,
-      owner_id INTEGER REFERENCES owner(id),     
-      created_date TIMESTAMP DEFAULT NOW()
-    )`;
 
-pool.query(queryText4, (err, res) => {
+pool.query(propertyTable, (err, res) => {
   console.log(err, res);
 });
 
@@ -90,4 +111,4 @@ pool.query(queryText4, (err, res) => {
 
 
 module.exports = pool;
-
+ */

@@ -1,4 +1,4 @@
-const pool = require('../db/db')
+const pool = require('../db/db').pool
 
 const getAllReviews = (req, res) => {
     pool.query('SELECT * FROM reviews ORDER BY id ASC', (error, results) => {

@@ -3,7 +3,7 @@ const router       = require('express').Router(),
         subscriberRoute = require('./suscriber/suscriber_router'),
         reviewRoute = require('./review/review_router'),
         ownerRoute = require('./owner/owner_router'),
-        propertyRoute = require('./property/property_router')
+        propertyRoute = require('./property/property_router');
 
 /* router.use('/', (req, res) => {
     res.send("Testing")

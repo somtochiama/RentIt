@@ -1,66 +1,85 @@
 const bcrypt = require('bcrypt-nodejs')
 const pool = require('../db/db');
 const auth = require("../auth")
+
+
+const generateSalt = (ROUNDS) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.genSalt(ROUNDS,(err, salt) => {
+      if(err) {
+        reject(err)
+      }
+      resolve(salt)
+    })
+  })
+}
   
-
-
-const createAdmin = (req, res) => {
-  const {email, password} = req.body;
-  console.log(email)
-  pool.query('SELECT * FROM admins WHERE email = $1', [email], (error, results) => {
-      if (error) {
-          res.status(500).json({ error })
+const hashPassword = (password, salt) => {
+  return new Promise ((resolve, reject) => {
+    bcrypt.hash(password, salt, null, (err, hash) => {
+      if(err) {
+        reject(err)
       }
-      if(results.rows.length > 0) {
-          res.status(500).json({ message: "Your account already exists"})
-      } else {
-        bcrypt.genSalt(10, function(err, result) {
-            bcrypt.hash(password, result, null, function(err, hash) {
-                if(err) {
-                    res.status(500).json({ error: err})
-                } else {
-                    pool.query('INSERT INTO admins (password, email, salt) VALUES ($1, $2, $3)', [hash, email, result], (error, results) => {
-                        if (error) {
-                          throw error
-                        }
-                        console.log(results)
-                        res.status(201).json({ message: "User Created"})
-                      })
-                }          
-            });
+      resolve(hash)
+    })
+  })
+}
+
+const checkPassword = (password, hash) => {
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(password, hash, (err, isMatch) => {
+            if(err){
+                reject(err);
+            }
+            resolve(isMatch)
         })
-      }
-  })
+    })
 }
 
-const loginUser = (req, res, next) => {
-  const {email, password} = req.body;
-  console.log(email)
-  pool.query('SELECT * FROM admins WHERE email = $1', [email], (error, results) => {
-      if (error) {
-        res.status(500).json({ error })          
+/* const comparePassword = (password, hash) => {
+  return new Promise((reject, resolve) => {
+    bcrypt.compare(password, hash, (err, isMatch) => {
+      if(err) {
+        reject(err);
       }
-      if(results.rows.length === 0) {
-          res.status(500).json({ message: "You don't have an account yet!"})
-      } else {
-        bcrypt.compare(password, results.rows[0].password, function(err, result) {
-          if(err) {
-              console.log("error")
-              res.status(500).json(err)
-          } else if(result){
-              req.user = results.rows[0];
-              next()
-            //   res.status(200).json(results.rows[0])
-          } else {
-              console.log("password problem")
-              res.status(404).json({error: "Invalid Credentials"})
-          }
-      })
-      }
+      resolve(isMatch);
+    })
   })
+} */
+
+const checkAdminExist = async (email) => {
+  const admin = await pool.query('SELECT * FROM admins WHERE email = $1', [email])
+  if(admin.rows.length > 0) {
+    return admin.rows[0]
+  }
+  return null
 }
 
-authAdmin = (req, res, next) => {
+
+const createAdmin = async (req, res, next) => {
+  try{
+      const {email, password} = req.body;
+      const present = await checkAdminExist(email);
+      if(present) {
+        res.status(400).json(
+          { message: "Your account already exists"}
+        )}
+        
+        const salt = await generateSalt(10);
+        const hashedPassword = await(hashPassword(password, salt));
+        const insertQuery = 'INSERT INTO admins (password, email, salt) VALUES ($1, $2, $3)';
+        const newAdmin = await pool.query(insertQuery, [hashedPassword, email, salt])
+
+        return res.status(201).json({
+          message: "Your account has been created!"
+        })
+  } catch(err) {
+    console.log(err);
+    return next(err)
+  }
+
+}
+const authAdmin = (req, res, next) => {
     var token = auth.signToken(req.user.id);
 
     res.status(200).json({
@@ -68,6 +87,38 @@ authAdmin = (req, res, next) => {
         'data': req.user
     })
 }
+
+const loginUser = async (req, res, next) => {
+  try {
+    const {email, password} = req.body;
+    console.log(email)
+    const admin = await checkAdminExist(email);
+    if(!admin) {
+      return res.status(403).json({
+        message: "You don't have an account"
+      })
+    }
+    console.log(admin)
+    let isMatch = await checkPassword(password, admin.password)
+        if(!isMatch){
+          return res.status(400).json({
+            message: "Invalid Credentials"
+          })         
+        }
+    /* const isMatch = await comparePassword(password, admin.password);
+    console.log(isMatch)
+    if(isMatch) {
+      return res.status(200).json({message: "Logged In"})
+    } */
+    req.user = admin;
+    next() 
+  } catch(err) {
+    console.log(err);
+    // return res.status(500).json("Error!")
+    return next(err)
+  }
+}
+
 
 module.exports = {
   createAdmin,

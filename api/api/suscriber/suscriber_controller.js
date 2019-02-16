@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt-nodejs')
-const pool = require('../db/db')
+const pool = require('../db/db').pool
 
 
 const getAllSuscribers = (req, res) => {
