@@ -9,7 +9,7 @@ img {
     height: auto;
 }
 
-input {
+input, select {
     width: 100%;
     border: 1px solid #C4C4C4;
     height: 20px;

@@ -7,9 +7,7 @@
         </div>
         <h2>All Properties</h2>
         <div class="prop-list">
-            <property v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-            <property v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-            <property v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
+            <property :admin="true" v-for="property in allProperties" :data="property"/>
         </div>
     </div>
 </template>
@@ -28,12 +26,24 @@ export default {
         return {
             show: false,
         }
+    },
+    computed: {
+        allProperties() {
+            return this.$store.state.properties
+        }
+    },
+    mounted() {
+        this.$store.dispatch("getAllProperties");
     }
 }
 
 </script>
 
 <style>
+
+    button {
+        margin: 3px;
+    }
 
     h2 {
         text-align: center;

@@ -7,9 +7,7 @@
       <h2 class="heading">Latest Properties</h2>
       <p class="sub-heading">vIiew the latest property on the markett. You are sure to see something good’</p>
       <div class="list">
-        <property v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-        <property v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }' />
-        <property v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }' />
+        <property v-for="property in properties" v-bind:data='property'/>
       </div>
     </div>
     <newsletter />
@@ -42,6 +40,8 @@ import Property from "@/components/Property.vue";
 import Newsletter from "@/components/Newsletter.vue";
 import Testimonials from "@/components/Testimonial.vue"
 
+import { mapState } from "vuex";
+
 export default {
   name: "home",
   components: {
@@ -49,7 +49,20 @@ export default {
     Property,
     Newsletter,
     Testimonials
-  }
+  },
+  computed: {
+    all() {
+      return this.$store.state.properties;
+    },
+    properties() {
+      // const all = this.$store.state.properties;
+      console.log(this.all)
+      return this.all.splice(0, 3)
+    }
+  },
+  created() {
+    this.$store.dispatch("getAllProperties")
+  },
 };
 </script>
 

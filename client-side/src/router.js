@@ -8,6 +8,7 @@ import Contact from "./views/Contact.vue";
 import LogIn from "./components/LogIn.vue";
 import SignUp from "./components/SignUp.vue";
 import Services from "./views/Services.vue";
+import AddProperty from "./components/AddProperty.vue";
 
 Vue.use(Router);
 
@@ -57,7 +58,11 @@ export default new Router({
       path: "/services",
       name: "Services",
       component: Services
+    },
+    {
+      path: "/edit/:id",
+      name: "Edit",
+      component: AddProperty
     }
-
   ]
 });
