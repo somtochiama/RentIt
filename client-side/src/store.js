@@ -7,11 +7,15 @@ import axios from "axios";
 
 export default new Vuex.Store({
   state: {
-    properties: []
+    properties: [],
+    searchResults: []
   },
   mutations: {
     updateProperties(state, properties) {
       state.properties = properties;
+    },
+    updateSearchResults(state, results) {
+      state.searchResults = results;
     }
   },
   actions: {

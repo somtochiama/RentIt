@@ -10,7 +10,7 @@
       	<router-link to="/about">About</router-link>
       	<router-link to="/contact">Contact</router-link>
       </div>
-      <div id="left-nav">
+      <div id="left-nav" v-if="!isAdmin">
         <router-link to="/signup">Sign Up</router-link>
         <button><router-link to="/dashboard"> Post a property</router-link></button>
       </div>
@@ -18,8 +18,25 @@
 </template>
 
 <script>
+
 export default {
-    name: "NavBar"
+  name: "NavBar",
+  
+  data() {
+    return {
+      isAdmin: false,
+    }
+  },
+
+  watch: {
+    $route(to, from) {
+      if (to.matched.some(record => record.meta.requiresAuth)) {
+        this.isAdmin = true;
+      } else {
+        this.isAdmin = false
+      }
+    }
+  }
 }
 </script>
 

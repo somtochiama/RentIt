@@ -3,12 +3,13 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Houses from "./views/House.vue";
 import About from "./views/About.vue";
+import Services from "./views/Services.vue";
 import Dashboard from "./views/Dashboard.vue";
 import Contact from "./views/Contact.vue";
 import LogIn from "./components/LogIn.vue";
 import SignUp from "./components/SignUp.vue";
-import Services from "./views/Services.vue";
 import AddProperty from "./components/AddProperty.vue";
+import Review from "./components/Review.vue";
 
 Vue.use(Router);
 
@@ -63,6 +64,16 @@ export default new Router({
       path: "/edit/:id",
       name: "Edit",
       component: AddProperty
+    },
+    {
+      path: "/search",
+      name: "Search",
+      component: Houses
+    },
+    {
+      path: "/review",
+      name: "Review",
+      component: Review
     }
   ]
 });

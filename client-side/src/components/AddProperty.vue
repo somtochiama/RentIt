@@ -94,7 +94,8 @@ export default {
             if(this.validateForm()) {
                 console.log("submitting")
             
-                let url = `http://localhost:3000/api/property/${this.editMode ? "put" : "post"}`;
+                let url = `http://localhost:3000/api/property/${this.editMode ? `update/${this.$route.params.id}` : "post"}`;
+                console.log(url)
                 const data = {
                     type: this.form.type,
                     status: this.form.status,
@@ -129,8 +130,9 @@ export default {
     },
     mounted() {
         if(this.$route.name === "Edit") {
+            this.editMode = true;
                 const token = localStorage.getItem("_token");            
-            axios.get(`http://localhost:3000/api/property/${this.$route.params.id}`, {
+            axios.get(`http://localhost:3000/api/property/apartment/${this.$route.params.id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -138,13 +140,15 @@ export default {
             })
             .then(response => {
                 console.log(response.data)
-                this.form.status = response.data.status;
-                this.form.price = response.data.price;
-                this.form.location = response.data.location;
-                this.form.address = response.data.address;
-                this.form.status = response.data.status;
-                this.form.status = response.data.status;
-                this.form.status = response.data.status;
+                this.form.type = response.data.data.type;
+                this.form.desc = response.data.data.description;
+                this.form.status = response.data.data.status;
+                this.form.price = response.data.data.price;
+                this.form.location = response.data.data.location;
+                this.form.address = response.data.data.address;
+                // this.form.ownerName = response.data.;
+                this.form.ownerEmail = response.data.owner.email;
+                this.form.ownerPhoneNumber = response.data.owner.phone_number;
             })
             .catch(err => {
                 console.log(err.response.data)

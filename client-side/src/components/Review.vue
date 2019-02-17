@@ -1,6 +1,6 @@
 <template>
      <div class="form-box">
-        <h2>Log In </h2>
+        <h2>We would love to get feedback! </h2>
         <form action="">
             <p v-if="message" class="red">{{message}}</p>
             <label for="email">Rate Our Services (Over 5)</label>
@@ -21,6 +21,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+    .form-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 
 </style>
