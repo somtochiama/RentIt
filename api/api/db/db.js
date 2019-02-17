@@ -1,6 +1,6 @@
 const { Pool, Client } = require('pg');
 const dotenv = require('dotenv');
-const {adminTable, suscriberTable, reviewsTable, propertyTable, ownerTable } = require('./schema')
+const {adminTable, suscriberTable, reviewsTable, propertyTable, ownerTable, listingTable } = require('./schema')
 const connectionString = process.env.DATABASE_URL;
 // console.log(process.env.DATABASE_URL)
 
@@ -37,6 +37,7 @@ const createTables = async () => {
       await client.query(ownerTable);
       await client.query(propertyTable);
       await client.query(suscriberTable);
+      await client.query(listingTable);
       await client.end()
       console.log('Tables created successfully');
       process.exit(0)

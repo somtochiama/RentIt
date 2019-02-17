@@ -30,6 +30,7 @@ const ownerTable=
     `CREATE TABLE IF NOT EXISTS
         owner(
         id SERIAL PRIMARY KEY ,
+        name VARCHAR(128) NOT NULL UNIQUE,
         email VARCHAR(128) NOT NULL UNIQUE,
         phone_number INTEGER NOT NULL,
         created_date TIMESTAMP DEFAULT NOW()
@@ -49,10 +50,27 @@ const propertyTable =
         created_date TIMESTAMP DEFAULT NOW()
         )`;
 
+const listingTable =
+`CREATE TABLE IF NOT EXISTS
+    listing(
+    id SERIAL PRIMARY KEY ,
+    location VARCHAR(128) NOT NULL ,
+    description VARCHAR(225) NOT NULL,
+    status VARCHAR(128) NOT NULL,
+    address VARCHAR(225) NOT NULL,
+    price INTEGER NOT NULL,
+    type VARCHAR(128) NOT NULL,
+    owner_name VARCHAR(128) NOT NULL,     
+    owner_email VARCHAR(128) NOT NULL,     
+    owner_phone_number INTEGER NOT NULL,     
+    created_date TIMESTAMP DEFAULT NOW()
+    )`;
+
 module.exports = {
     adminTable,
     suscriberTable,
     reviewsTable,
     propertyTable,
+    listingTable,
     ownerTable
 }
