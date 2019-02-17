@@ -10,7 +10,9 @@ router.delete('/delete/:id',auth.validateToken, controller.deleteProperty)
 
 router.put('/update/:id', auth.validateToken, controller.updateProperty)
 
-router.get('/:id',auth.validateToken, controller.getProperty)
+router.get('/apartment/:id',auth.validateToken, controller.getProperty)
+
+router.get('/search', controller.searchProperty)
 
 
 module.exports = router;

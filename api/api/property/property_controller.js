@@ -139,10 +139,33 @@ const getOwnerById = async (id) => {
     }
 }
 
+const searchProperty = async (req, res) => {
+    let {location, price, type} = req.query;
+    console.log(location, price, type);
+    try {
+        let searchQuery, searchQueryValues
+        if(type == 'any'){
+            searchQuery = 'SELECT * FROM property WHERE location=$1 AND price <= $2';
+            searchQueryValues = [location, price];
+        }else{ 
+            searchQuery = 'SELECT * FROM property WHERE location=$1 AND price <= $2 AND type = $3';
+            searchQueryValues = [location, price, type];
+        }
+        const queryResult = await pool.query(searchQuery, searchQueryValues);
+        return res.status(200).json({
+            data: queryResult.rows
+        })
+    } catch (err) {
+        console.log("Something bad happened trying search for an apartment", err);
+        return next(err)
+    }
+}
+
 module.exports = {
     getAllProperty,
     postProperty,
     updateProperty,
+    searchProperty,
     deleteProperty,
     getProperty
 }
