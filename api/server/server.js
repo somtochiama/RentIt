@@ -4,6 +4,9 @@ const express   = require('express'),
         cors    = require('cors'),
         api     = require('../api/api'),
         app     = express();
+        // cron    = require('node-cron');
+        
+require('../api/mailer')
 
 app.use(bps.json());
 app.use(bps.urlencoded({ extended: true}));
@@ -22,5 +25,11 @@ app.use((res, req, next) => {
 app.use((err, req, res, next) => {
         res.status(500).json({err})
 })
+
+/* cron.schedule("* * * * *", function() {
+        console.log("running a task every minute");
+});
+
+app.listen(3128); */
 
 module.exports = app;
