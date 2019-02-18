@@ -41,6 +41,10 @@ export default {
 
 <style scoped>
 
+    .dashboard {
+        background-color: #F2F6FF;
+    }
+
     button {
         margin: 3px;
     }

@@ -67,8 +67,8 @@ export default {
 <style scoped>
 
     #search {
-        width: 300px;
-        padding: 10px;
+        width: 350px;
+        padding: 18px;
         border-radius: 10px; 
         border: 1px solid #c4c4c4
     }
