@@ -13,7 +13,7 @@ import Review from "./components/Review.vue";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
@@ -38,7 +38,10 @@ export default new Router({
     {
       path: "/dashboard",
       name: "Dashboard",
-      component: Dashboard
+      component: Dashboard,
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: "/login",
@@ -77,3 +80,21 @@ export default new Router({
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  console.log("Hello");
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    console.log("HEyy");
+    if (localStorage.getItem("token") == null) {
+      next({
+        path: "/login"
+      });
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+
+export default router;

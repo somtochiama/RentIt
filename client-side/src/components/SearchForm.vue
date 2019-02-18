@@ -10,13 +10,15 @@
         <h2 style="text-align:center">Find the perfect home for you</h2>
         <label for="location">Location</label>
         <input type="text" name="location" id="location" v-model="location">
-        <div class="input-box">
-        	<label for="price">Price</label>
-        	<input type="number" name="price" id="price" v-model="price">
-        </div>
-        <div class="input-box">
-            <label for="type">Type</label>
-            <input type="text" name="type" id="type" v-model="type">
+        <div class="full-input">
+            <div class="input-box">
+                <label for="price">Price</label>
+                <input type="number" name="price" id="price" v-model="price">
+            </div>
+            <div class="input-box">
+                <label for="type">Type</label>
+                <input type="text" name="type" id="type" v-model="type">
+            </div>
         </div>
         <button type="submit">Search</button>
     </form>
@@ -87,17 +89,22 @@ export default {
     }
 
     label {
-        margin-top: 10px
+        margin: 10px 0;
     }
 
-    
+    div.full-input {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+    }
 
     .input-box {
-        width: 30%;
+        width: 48%;
         margin-top: 10px;
+        float: left;
     }
 
     button {
-        margin: 10px auto
+        margin: 20px auto
     }
 </style>

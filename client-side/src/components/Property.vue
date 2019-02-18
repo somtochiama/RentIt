@@ -55,12 +55,38 @@ export default {
 <style scoped>
     .property {
         width: 30%;
+        background-color: white;
         /* height: 350px; */
+    }
+
+    .info {
+        padding: 10px;
     }
 
     .img-div {
         width: 100%;
         /* height: 200px;  */
+    }
+
+    .title{
+        margin: 0px;
+    }
+
+    .desc {
+        color: #888686;
+        margin: 10px 0;
+        font-size: 14px
+    }
+
+    .price {
+        color: #66DBB7;
+        font-size: 26px;
+        margin: 10px 0;
+
+    }
+
+    .location{
+        font-weight: bold;
     }
 
 

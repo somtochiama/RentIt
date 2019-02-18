@@ -5,7 +5,7 @@
     </div>
     <div class="display-houses">
       <h2 class="heading">Latest Properties</h2>
-      <p class="sub-heading">vIiew the latest property on the markett. You are sure to see something good’</p>
+      <p class="sub-heading">View the latest property on the market. You are sure to see something good’</p>
       <div class="list">
         <property v-for="property in properties" v-bind:data='property'/>
       </div>
@@ -81,7 +81,7 @@ export default {
   background-repeat: no-repeat;
   background-position: center;
   color: white;
-  padding: 50px;
+  padding: 20px 50px;
 }
 
 .testimonials {
@@ -103,7 +103,7 @@ export default {
 }
 
 .display-houses {
-  padding: 10px 30px;
+  padding: 20px 80px;
   background-color: #F2F6FF;
 }
 
@@ -115,7 +115,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around ;
-  margin: 10px;
+  margin: 40px 7px;
 }
 
 

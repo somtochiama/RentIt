@@ -6,7 +6,7 @@
         <div class="testimony">
             <p class="words">The service was 1005 excellent and I love the property. It is rare seeing people so hoest about what they have to offer</p>
             <p class="title">Regina Zeus</p>
-            <p class="position">FOunder, The Reach</p>
+            <p class="position">F0under, The Reach</p>
         </div>
       </div>
 </template>
@@ -26,7 +26,16 @@ export default {
     }
 
     .words {
-        color: white
+        color: white;
+        font-size: 14px;
+    }
+
+    .title {
+        font-weight: bold
+    }
+
+    p{
+        margin: 5px 0
     }
 
     .img-box {

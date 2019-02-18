@@ -67,12 +67,14 @@ button {
 .input-cont {
     display: flex;
     width: 70%; 
+    background: white;
+    padding: 20px 25px;
 }
 
 input[type="text"] {
     width: 90%;
     margin-right: 20px;
-    padding: 10px;
+    padding: 20px;
 }
 
 </style>

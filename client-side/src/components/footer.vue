@@ -35,12 +35,17 @@ export default {
     color: white;
     display: flex;
     /* align-content: center; */
-    flex-direction: column
+    flex-direction: column;
+    padding: 40px 10px ;
 }
 
 .social-icons {
     display: flex;
     align-self: center;
+}
+
+p {
+  margin: 5px 0;
 }
 
 img {
