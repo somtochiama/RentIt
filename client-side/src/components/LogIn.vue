@@ -1,7 +1,15 @@
 <template>
     <div class="form-box">
+        <modal v-if="showModal" @close="showModal = false" >
+            <template v-slot:body>
+                <div v-if="message">{{message}}</div>
+            </template>
+            <template v-slot:footer>
+                <button @click="showModal = false">Okay</button>
+            </template>
+        </modal>
         <h2>Log In </h2>
-        <form @submit.prevent="submitForm" action="">
+        <form class="form" @submit.prevent="submitForm" action="">
             <!-- <p v-if="message" class="red">{{message}}</p> -->
             <p v-if="errors.length">
                 <b>Please correct the error(s) below:</b>
@@ -21,6 +29,7 @@
 
 <script>
 import axios from "axios";
+import Modal from "./Modal.vue"
 
 export default {
     name: "Login",
@@ -28,7 +37,9 @@ export default {
         return {
             errors: [],
             email: null,
-            password: null
+            password: null,
+            showModal: false,
+            message: null,
         }
     },
     methods: {
@@ -56,6 +67,8 @@ export default {
         },
         
         submitForm(e) {
+            this.message = "You are logged in!"
+            this.showModal = true
             const validate = this.validateForm();
             // e.preventDefault();
             if(validate) {
@@ -68,7 +81,8 @@ export default {
                 .then((response) => {
                     console.log(response.data);
                     localStorage.setItem('data', JSON.stringify(response.data.data))
-                    localStorage.setItem('token', JSON.stringify(response.data.token))
+                    // console.log(JSON.stringify(response.data.token))
+                    localStorage.setItem('token', response.data._token)
                     this.$router.push('/dashboard');
                 })
                 .catch(err => {
@@ -78,6 +92,9 @@ export default {
             }
             
         }
+    },
+    components: {
+        Modal
     }
 }
 </script>
@@ -94,6 +111,12 @@ li {
     align-items: center;
     justify-content: center;
     width: 100%;
+    min-height: 80vh;
+    background-color: #F2F6FF;
+}
+
+form {
+    border: 1px solid #c4c4c4
 }
 
 .signin {

@@ -43,4 +43,17 @@ export default {
         /* height: 30%; */
     }
 
+    @media screen and (max-width: 750px) {
+        div.client {
+            width: 47%;
+            margin: 10px;
+        }
+    }
+
+    @media screen and (max-width: 475px) {
+        div.client {
+            width: 100%;
+        }
+    }
+
 </style>

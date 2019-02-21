@@ -5,7 +5,7 @@
         	<p>We would love to hear from you!</p>
         </div>
         <div class="form-box">
-            <form action="">
+            <form class="form" action="">
             <label for="name">Name</label>
             <input type="password" name="name" id="name">
             <label for="email">Email</label>
@@ -48,6 +48,12 @@ form { width: 60%;}
     justify-content: center;
     background-color: #F2F6FF;
     padding: 10px;
+}
+
+@media screen and (max-width: 750px) {
+    form {
+        width: 80%
+    }
 }
 
 </style>

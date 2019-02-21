@@ -30,6 +30,10 @@ export default {
 
 <style scoped>
 
+img {
+  min-width: 10px;
+}
+
 .footer {
     background-color: #354A5F;
     color: white;
@@ -62,6 +66,19 @@ img {
 
  .right-info {
     text-align: right;
+}
+
+@media screen and (max-width: 470px) {
+    .company-info {
+      flex-direction: column;
+    }
+
+    .right-info {
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    
 }
 
 </style>

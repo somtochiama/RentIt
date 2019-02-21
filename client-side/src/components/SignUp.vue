@@ -2,7 +2,7 @@
     <div class="form-box">
         <h2>Sign Up </h2>
         <form action="">
-            <p v-if="message" class="red">{{message}}</p>
+            <!-- <p v-if="message" class="red">{{message}}</p> -->
             <label for="email">Email</label>
             <input type="email" name="email" id="email">
             <label for="Password">Password</label>

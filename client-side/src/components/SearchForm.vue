@@ -1,6 +1,6 @@
 <template>
 
-    <form @submit.prevent="submitForm()" action="">
+    <form class="form" @submit.prevent="submitForm()" >
         <p v-if="errors.length">
             <b>Please correct the error(s) below:</b>
             <ul>
@@ -84,7 +84,7 @@ export default {
         background-color: white;
         border-radius: 10px;
         width: 40%;
-        height: 350px ;
+        /* height: 350px ; */
         padding: 20px;
     }
 
@@ -93,7 +93,7 @@ export default {
     }
 
     div.full-input {
-        margin-top: 20px;
+        /* margin-top: 20px; */
         display: flex;
         justify-content: space-between;
     }
@@ -106,5 +106,15 @@ export default {
 
     button {
         margin: 20px auto
+    }
+
+    @media screen and (max-width: 750px) {
+        div.full-input {
+            flex-direction: column
+        }
+
+        .input-box {
+            width: 100%
+        }
     }
 </style>

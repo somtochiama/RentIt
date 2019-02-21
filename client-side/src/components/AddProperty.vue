@@ -1,5 +1,5 @@
 <template>
-    <form action="" class="add" @submit.prevent="submitProperty">
+    <form action="" class="add form" @submit.prevent="submitProperty">
         <p v-if="errors.length">
             <b>Please correct the error(s) below:</b>
             <ul>
@@ -104,11 +104,12 @@ export default {
                     location: this.form.location,
                     price: this.form.price,
                     ownerId: this.form.ownerId,
+                    ownerName: this.form.ownerName,
                     ownerEmail: this.form.ownerEmail,
                     ownerPhoneNumber: this.form.ownerPhoneNumber,
                 }
-                console.log(localStorage.getItem("_token"))
-                const token = localStorage.getItem("_token");
+                console.log(localStorage.getItem("token"))
+                const token = localStorage.getItem("token");
                 const method = this.editMode ? "put" : "post";
                 axios({
                     method,
@@ -131,7 +132,7 @@ export default {
     mounted() {
         if(this.$route.name === "Edit") {
             this.editMode = true;
-                const token = localStorage.getItem("_token");            
+            const token = localStorage.getItem("token");            
             axios.get(`http://localhost:3000/api/property/apartment/${this.$route.params.id}`, {
                 headers: {
                     "Content-Type": "application/json",
@@ -166,6 +167,7 @@ export default {
 
 select {
     height: 40px;
+    padding: 5px;
 }
 
 form {

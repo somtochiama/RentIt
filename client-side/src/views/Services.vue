@@ -32,6 +32,10 @@ export default {
 
 <style scoped>
 
+img {
+    min-width: 10px;
+}
+
 .service-text{
     /* background-color: aqua; */
     height: 70vh;
@@ -63,6 +67,20 @@ export default {
     justify-content: center;
     align-items: center;
     background-color: #354A5F;
+}
+
+@media screen and (max-width: 750px) {
+    .one-card {
+        width: 50%;
+        margin: 10px;
+    }
+}
+
+@media screen and (max-width: 470px) {
+    .one-card {
+        width: 90%;
+        /* margin: 10px; */
+    }
 }
 
 </style>
