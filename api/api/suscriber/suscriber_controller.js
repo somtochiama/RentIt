@@ -20,20 +20,6 @@ const postSuscriber = (req, res) => {
           res.status(500).json({error})
       }
       if(results.rows.length > 0) {
-            let MAIL_OPTIONS = {
-                from: process.env.GMAIL,
-                to: email,
-                subject: "Welcome to RentIt",
-                text: `Thanks for subscribing to the rent it newsletter, No spam as promised. We will only deliver the latest offers to your inbox. \n\n With love, The RentIt Family`
-            }
-            sendMail(MAIL_OPTIONS, (err, result) => {
-                if(err) {
-                    console.log(err)
-                    throw (err)
-                    return
-                }
-                console.log("Email Sent successfully")
-            })
             res.status(500).json({ message: "You mail is already on our list!"});
             
       } else {
@@ -42,7 +28,20 @@ const postSuscriber = (req, res) => {
                     throw error
                 }
                 console.log(results)
-                
+                let MAIL_OPTIONS = {
+                    from: process.env.GMAIL,
+                    to: email,
+                    subject: "Welcome to RentIt",
+                    text: `Thanks for subscribing to the rent it newsletter, No spam as promised. We will only deliver the latest offers to your inbox. \n\n With love, The RentIt Family`
+                }
+                sendMail(MAIL_OPTIONS, (err, result) => {
+                    if(err) {
+                        console.log(err)
+                        throw (err)
+                        return
+                    }
+                    console.log("Email Sent successfully")
+                })
                 res.status(201).json({ message: "Your email has been added to our mailing list"})
             })
       }

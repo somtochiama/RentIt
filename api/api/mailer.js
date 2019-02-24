@@ -8,8 +8,8 @@ const transporter = mailer.createTransport({
     service: "gmail",
     auth: {
         // type: "login",
-        user: "somtochionyekwere@gmail.com",
-        pass: "Pyramid1",
+        user: process.env.GMAIL,
+        pass: process.env.GMAIL_PASSWORD,
     }
 });
 

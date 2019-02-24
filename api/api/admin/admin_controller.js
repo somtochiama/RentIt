@@ -61,7 +61,7 @@ const createAdmin = async (req, res, next) => {
       const {email, password} = req.body;
       const present = await checkAdminExist(email);
       if(present) {
-        res.status(400).json(
+        return res.status(400).json(
           { message: "Your account already exists"}
         )}
         

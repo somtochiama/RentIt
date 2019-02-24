@@ -1,20 +1,24 @@
 const { Pool, Client } = require('pg');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 const {adminTable, suscriberTable, reviewsTable, propertyTable, ownerTable, listingTable } = require('./schema')
 const connectionString = process.env.DATABASE_URL;
 // console.log(process.env.DATABASE_URL)
 
-dotenv.config();
+// dotenv.config();
 
-const client = new Client();
+const client = new Client(connectionString);
 
 // const { Pool } = require('pg');
 
 // const dotenv = require('dotenv');
 
-dotenv.config();
+// dotenv.config();
 
-const pool = new Pool();
+console.log(connectionString)
+
+const pool = new Pool({
+  connectionString
+});
 
 const query = function (text, params){
   return new Promise((resolve, reject) => {

@@ -1,12 +1,14 @@
-const pool = require('../db/db').pool
+const pool = require('../db/db')
 
-const getAllProperty = (req, res) => {
-    pool.query('SELECT * FROM property ORDER BY id ASC', (error, results) => {
-        if (error) {
-          res.status(500).json({ error})
-        }
-        res.status(200).json(results.rows)
-    })
+const getAllProperty = async (req, res, next) => {
+    try {
+        const apartments = await pool.query('SELECT * FROM property ORDER BY id DESC')
+        return res.status(200).json({
+            data: apartments.rows
+        })
+    } catch(err) {
+        return next(err)
+    }
 }
 
 
@@ -14,6 +16,7 @@ const getOwnerByEmail = async (email) => {
     try{
         const owner = await pool.query('SELECT * FROM owner WHERE email = $1', [email])
         if(owner.rows.length > 0) {
+            console.log("exists")
             return owner.rows[0].id
         }
         return null
@@ -22,9 +25,16 @@ const getOwnerByEmail = async (email) => {
     }
 }
 
-const insertOwner = async(email, phoneNumber) => {
+const insertOwner = async(name, email, phoneNumber) => {
     try {
-        pool.query('INSERT INTO owner (email, phone_number) VALUES ($1, $2)', [email, phoneNumber])
+        await pool.query('INSERT INTO owner (name, email, phone_number) VALUES ($1, $2, $3)', [name, email, phoneNumber])
+        /* const owner = await pool.query('SELECT * FROM owner WHERE email = $1', [email])
+        if(owner.rows.length > 0) {
+            console.log("exists")
+            return owner.rows[0].id
+        }
+        // console.log("Hmm")
+        return null */
     } catch(err) {
         console.log(err)
     }
@@ -33,28 +43,28 @@ const insertOwner = async(email, phoneNumber) => {
 const postProperty = async (req, res) => {
     try {
         console.log("Hello")
-        const {status, location, address, price, type, desc, ownerEmail, ownerPhoneNumber} = req.body;
+        const {status, location, address, price, type, desc,ownerName, ownerEmail, ownerPhoneNumber} = req.body;
 
         let ownerId = await getOwnerByEmail(ownerEmail);
 
         if(!ownerId) {
-            await insertOwner(ownerEmail, ownerPhoneNumber)
+            ownerId = await insertOwner(ownerName, ownerEmail, ownerPhoneNumber)
             console.log(ownerId)
             ownerId = await getOwnerByEmail(ownerEmail)
             console.log(ownerId)
-
         } 
 
         console.log('Heyy', ownerId)
 
         const insertText = 'INSERT INTO property(status, location, address, price, type, description, owner_id) VALUES($1, $2, $3, $4, $5, $6, $7)'
-        await pool.query(insertText, [status, location, address, price, type, desc,ownerId])
+        await pool.query(insertText, [status, location, address, price, type, desc, ownerId])
 
         res.status(200).json({
             ownerId,
             "message": "Property added"
         })
 
+        console.log(ownerId)
     } catch(err) {
         console.log(err)
         throw(err)
