@@ -24,19 +24,24 @@ cron.schedule('* * 20 * *', async () => {
         text: 'New apartments have been added on rentit.com, checek one might just be for you!'
     }
 
-    sendMail(mailOptions, (err, results) => {
-        if(err) {
-            console.log("Error happened");
-            return
-        }
+    try {
+        await sendMail(mailOptions)
         console.log("Mail sent", results)
-    });
-    
+    } catch (err) {
+        console.log("Error happened", err);      
+    }
 })
 
-const sendMail = (mailOptions, cb) => {
-    console.log(process.env.GMAIL, "Heyy")
-    transporter.sendMail(mailOptions, cb);
+const sendMail = (mailOptions) => {
+    new Promise(async (resolve, reject) => {
+        try {
+            console.log(process.env.GMAIL, "Heyy")
+            const info = await transporter.sendMail(mailOptions);
+            resolve(info)
+        } catch (err) {
+            reject(err)
+        }
+    })
 }
    
 

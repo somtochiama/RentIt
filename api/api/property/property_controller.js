@@ -49,13 +49,9 @@ const postProperty = async (req, res) => {
 
         if(!ownerId) {
             ownerId = await insertOwner(ownerName, ownerEmail, ownerPhoneNumber)
-            console.log(ownerId)
             ownerId = await getOwnerByEmail(ownerEmail)
             console.log(ownerId)
         } 
-
-        console.log('Heyy', ownerId)
-
         const insertText = 'INSERT INTO property(status, location, address, price, type, description, owner_id) VALUES($1, $2, $3, $4, $5, $6, $7)'
         await pool.query(insertText, [status, location, address, price, type, desc, ownerId])
 
@@ -66,42 +62,50 @@ const postProperty = async (req, res) => {
 
         console.log(ownerId)
     } catch(err) {
-        console.log(err)
-        throw(err)
+        return next(err)
     }
 
     
 }
 
-const deleteProperty = (req, res) => {
-    const id = parseInt(req.params.id)
-
-    pool.query('DELETE FROM property WHERE id = $1', [id], (error, results) => {
-        if (error) {
-            // throw error
-            res.status(500).json({ error})
-        }
-        console.log(results)
-        res.status(200).send(`User deleted with ID: ${id}`)
-    })
+const deleteProperty = async (req, res, next) => {
+    try {
+        const id = parseInt(req.params.id)
+        await pool.query('DELETE FROM property WHERE id = $1', [id])
+        return res.status(200).json({
+            message: 'Property deleted successfully'
+        })
+    } catch(err) {
+        return next(err)
+    }
 }
 
-const updateProperty = (req, res) => {
-    const id = parseInt(req.params.id)
-    const {status, location, address, price, type, ownerId, desc} = req.body
+const updateProperty = async (req, res) => {
+    try {
+        const id = parseInt(req.params.id)
+        const {status, location, address, price, type, ownerId, desc} = req.body
+        const UPDATE_TEXT = 'UPDATE property SET status = $1, location = $2, address = $3, price = $4, type = $5, owner_id = $6, description = $7 WHERE id = $8'
+        pool.query( UPDATE_TEXT,[status, location, address, price, type, ownerId, desc, id])
+        return res.status(200).json({
+            message: `User modified with ID: ${id}`
+        })
+    } catch(err) {
+        return next(err)
+    }
+}
 
-    pool.query(
-        'UPDATE property SET status = $1, location = $2, address = $3, price = $4, type = $5, owner_id = $6, description = $7 WHERE id = $8',
-        [status, location, address, price, type, ownerId, desc, id],
-        (error, results) => {
-        if (error) {
-            throw error
+const getOwnerById = async (id) => {
+    try{
+        console.log('there!')
+
+        const owner = await pool.query('SELECT * FROM owner WHERE id = $1', [id])
+        if(owner.rows.length > 0) {
+            return owner.rows[0]
         }
-        console.log(results)
-        res.status(200).send(`User modified with ID: ${id}`)
-        }
-        
-    )
+        return null
+    } catch(err) {
+        console.log(err)
+    }
 }
 
 const getProperty = async (req, res, next) => {
@@ -135,21 +139,7 @@ const getProp = async(id) => {
     }
 }
 
-const getOwnerById = async (id) => {
-    try{
-        console.log('there!')
-
-        const owner = await pool.query('SELECT * FROM owner WHERE id = $1', [id])
-        if(owner.rows.length > 0) {
-            return owner.rows[0]
-        }
-        return null
-    } catch(err) {
-        console.log(err)
-    }
-}
-
-const searchProperty = async (req, res) => {
+const searchProperty = async (req, res, next) => {
     let {location, price, type} = req.query;
     console.log(location, price, type);
     try {
