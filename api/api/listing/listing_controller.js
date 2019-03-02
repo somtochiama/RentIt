@@ -39,7 +39,7 @@ const deleteListing = async(req, res, next) => {
             message: `User deleted with id ${id}`
         })
     } catch(err) {
-        console.log(err);
+        // console.log(err);
         next(err)
     }
 }
@@ -53,7 +53,7 @@ const getOneListing = async(req, res, next) => {
             data: results.rows[0]
         })
     }catch(err) {
-        console.log(err);
+        // console.log(err);
         next(err)
     }
 }

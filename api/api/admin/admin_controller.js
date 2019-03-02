@@ -36,16 +36,6 @@ const checkPassword = (password, hash) => {
     })
 }
 
-/* const comparePassword = (password, hash) => {
-  return new Promise((reject, resolve) => {
-    bcrypt.compare(password, hash, (err, isMatch) => {
-      if(err) {
-        reject(err);
-      }
-      resolve(isMatch);
-    })
-  })
-} */
 
 const checkAdminExist = async (email) => {
   const admin = await pool.query('SELECT * FROM admins WHERE email = $1', [email])
@@ -74,8 +64,7 @@ const createAdmin = async (req, res, next) => {
           message: "Your account has been created!"
         })
   } catch(err) {
-    console.log(err);
-    return next(err)
+      return next(err)
   }
 
 }
@@ -91,30 +80,21 @@ const authAdmin = (req, res, next) => {
 const loginUser = async (req, res, next) => {
   try {
     const {email, password} = req.body;
-    console.log(email)
     const admin = await checkAdminExist(email);
     if(!admin) {
       return res.status(403).json({
         message: "You don't have an account"
       })
     }
-    console.log(admin)
     let isMatch = await checkPassword(password, admin.password)
         if(!isMatch){
           return res.status(400).json({
             message: "Invalid Credentials"
           })         
         }
-    /* const isMatch = await comparePassword(password, admin.password);
-    console.log(isMatch)
-    if(isMatch) {
-      return res.status(200).json({message: "Logged In"})
-    } */
-    req.user = admin;
-    next() 
+        req.user = admin;
+        next() 
   } catch(err) {
-    console.log(err);
-    // return res.status(500).json("Error!")
     return next(err)
   }
 }

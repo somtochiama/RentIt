@@ -16,12 +16,12 @@ const getOwnerByEmail = async (email) => {
     try{
         const owner = await pool.query('SELECT * FROM owner WHERE email = $1', [email])
         if(owner.rows.length > 0) {
-            console.log("exists")
             return owner.rows[0].id
         }
         return null
     } catch(err) {
         console.log(err)
+        return next(err)
     }
 }
 
@@ -40,20 +40,19 @@ const insertOwner = async(name, email, phoneNumber) => {
     }
 }
 
-const postProperty = async (req, res) => {
+const postProperty = async (req, res, next) => {
     try {
-        console.log("Hello")
         const {status, location, address, price, type, desc,ownerName, ownerEmail, ownerPhoneNumber} = req.body;
-
+        const url = req.file.url
+        const public_id = req.file.public_id
         let ownerId = await getOwnerByEmail(ownerEmail);
 
         if(!ownerId) {
             ownerId = await insertOwner(ownerName, ownerEmail, ownerPhoneNumber)
             ownerId = await getOwnerByEmail(ownerEmail)
-            console.log(ownerId)
         } 
-        const insertText = 'INSERT INTO property(status, location, address, price, type, description, owner_id) VALUES($1, $2, $3, $4, $5, $6, $7)'
-        await pool.query(insertText, [status, location, address, price, type, desc, ownerId])
+        const insertText = 'INSERT INTO property(status, location, address, price, type, description, owner_id, image_id, image_url) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)'
+        await pool.query(insertText, [status, location, address, price, type, desc, ownerId, public_id, url])
 
         res.status(200).json({
             ownerId,
@@ -62,6 +61,7 @@ const postProperty = async (req, res) => {
 
         console.log(ownerId)
     } catch(err) {
+        console.log(err)
         return next(err)
     }
 
@@ -96,8 +96,6 @@ const updateProperty = async (req, res) => {
 
 const getOwnerById = async (id) => {
     try{
-        console.log('there!')
-
         const owner = await pool.query('SELECT * FROM owner WHERE id = $1', [id])
         if(owner.rows.length > 0) {
             return owner.rows[0]
@@ -127,7 +125,6 @@ const getProperty = async (req, res, next) => {
 
 const getProp = async(id) => {
     try {
-        console.log('here!')
         const prop = await pool.query('SELECT * FROM property WHERE id = $1', [id])
         if(prop) {
             return prop.rows[0]
@@ -141,7 +138,6 @@ const getProp = async(id) => {
 
 const searchProperty = async (req, res, next) => {
     let {location, price, type} = req.query;
-    console.log(location, price, type);
     try {
         let searchQuery, searchQueryValues
         if(type == 'any'){

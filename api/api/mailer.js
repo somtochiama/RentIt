@@ -35,7 +35,6 @@ cron.schedule('* * 20 * *', async () => {
 const sendMail = (mailOptions) => {
     new Promise(async (resolve, reject) => {
         try {
-            console.log(process.env.GMAIL, "Heyy")
             const info = await transporter.sendMail(mailOptions);
             resolve(info)
         } catch (err) {

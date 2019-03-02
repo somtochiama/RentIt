@@ -56,11 +56,14 @@ const dropTables = async () => {
   await client.query('DROP TABLE IF EXISTS admins;');
   console.log('DROPPED TABLE admins')
 
+  await client.query('DROP TABLE IF EXISTS property;');
+  console.log('DROPPED TABLE property')
+
   await client.query('DROP TABLE IF EXISTS houses;');
   console.log('DROPPED TABLE houses');
 
-  await client.query('DROP TABLE IF EXISTS owners;');
-  console.log('DROPPED TABLE owners');
+  await client.query('DROP TABLE IF EXISTS owner;');
+  console.log('DROPPED TABLE owner');
 
   await client.query('DROP TABLE IF EXISTS reviews;');
   console.log('DROPPED TABLE reviews');

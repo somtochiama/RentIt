@@ -7,7 +7,7 @@ exports.signToken = (id) => {
     return jwt.sign(
         { _id: id},
         "secret",
-        { expiresIn: "168h" }
+        { expiresIn: "16800h" }
     )
 }
 

@@ -22,13 +22,11 @@ const getSuscriberByEmail = async (email) => {
 const postSuscriber = async (req, res, next) => {
     try {
         const {email} = req.body;
-        console.log(email)
         const subscriber = await getSuscriberByEmail(email)
         if(subscriber) {
             return res.status(500).json({ message: "You mail is already on our list!"});
         }
         await pool.query('INSERT INTO subscribers (email) VALUES ($1)', [email])
-        console.log("Here")
         let MAIL_OPTIONS = {
             from: process.env.GMAIL,
             to: email,

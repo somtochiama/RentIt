@@ -3,7 +3,6 @@ const pool = require('../db/db').pool
 const getAllReviews = async(req, res, next) => {
     try {
         const results = await pool.query('SELECT * FROM reviews ORDER BY id DESC')
-        // console.log(results)
         return res.status(200).json({
             data: results.rows
         })

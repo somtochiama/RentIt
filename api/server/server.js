@@ -26,10 +26,4 @@ app.use((err, req, res, next) => {
         res.status(500).json({err})
 })
 
-/* cron.schedule("* * * * *", function() {
-        console.log("running a task every minute");
-});
-
-app.listen(3128); */
-
 module.exports = app;
