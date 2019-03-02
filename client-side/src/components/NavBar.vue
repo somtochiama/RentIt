@@ -20,7 +20,7 @@
           <button><router-link to="/dashboard"> Post a property</router-link></button>
         </div>
         <div v-else>
-          <button>Logout</button>
+          <button @click="logout()">Logout</button>
         </div>
       </div>
     </div>
@@ -43,6 +43,12 @@ export default {
     showNavLinks() {
       this.isOpen = !this.isOpen
       this.isBlock = this.isBlock ? null : 'flex'
+    },
+
+    logout() {
+      console.log("Logging out")
+      localStorage.removeItem("token")
+      this.$router.push("/login")
     }
   },
 
@@ -56,6 +62,13 @@ export default {
       } else {
         this.isAdmin = false
       }
+    }
+  },
+
+  mouted() {
+    console.log(this.$route)
+    if(this.$route.name == "Dashboard") {
+      this.isAdmin = true
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
     <div class="property">
         <div class="img-div">
-            <img src="../assets/img02.jpg" alt="A cozy apartment">
-            <p class="status">Available</p>
+            <img :src="data.image_url" alt="A cozy apartment">
+            <p class="status">{{data.status}}</p>
         </div>
         <div class="info">
             <h4 class="title">{{ data.type}}</h4>
@@ -117,7 +117,7 @@ export default {
         }
     }
 
-    @media screen and (max-width: 475px) {
+    @media screen and (max-width: 475POSTpx) {
         .property {
             width: 90%;
         }

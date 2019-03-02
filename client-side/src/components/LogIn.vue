@@ -67,8 +67,6 @@ export default {
         },
         
         submitForm(e) {
-            this.message = "You are logged in!"
-            this.showModal = true
             const validate = this.validateForm();
             // e.preventDefault();
             if(validate) {
@@ -83,6 +81,8 @@ export default {
                     localStorage.setItem('data', JSON.stringify(response.data.data))
                     // console.log(JSON.stringify(response.data.token))
                     localStorage.setItem('token', response.data._token)
+                    this.message = "You are logged in!"
+                    this.showModal = true
                     this.$router.push('/dashboard');
                 })
                 .catch(err => {
