@@ -17,6 +17,11 @@ app.use(cors());
 
 app.use('/api', api)
 
+app.use((res, req, next) => {
+        res.status(404).json({
+                message: "Page not found!",
+        })
+})
 
 app.use((err, req, res, next) => {
         res.status(500).json({err})
@@ -30,10 +35,6 @@ if(process.env.NODE_ENV == 'production') {
         app.get(/.*/, (req, res) => res.sendFile(path.resolve(__dirname, '../api/public')))
 }
 
-app.use((res, req, next) => {
-        res.status(404).json({
-                message: "Page not found!",
-        })
-})
+
 
 module.exports = app;
