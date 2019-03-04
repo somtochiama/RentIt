@@ -32,21 +32,18 @@ export default {
     methods: {
         deleteProperty() {
             const token = localStorage.getItem("token")
-            console.log(this.data.id)
             axios.delete(`http://localhost:3000/api/property/delete/${this.data.id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }
             })
             .then(response => {
-                console.log(response.data);
                 this.$store.dispatch("getAllProperties");
             })
             .catch(err => console.log(err.response.data))
         },
         editProperty() {
             this.show = true;
-            console.log(this.data.id)
             this.$router.push(`/edit/${this.data.id}`)
         }
     },
@@ -54,6 +51,15 @@ export default {
 </script>
 
 <style scoped>
+
+    img {
+       min-width: 100%;
+        max-width: 100%;
+        display: block;
+        max-height: 100%;
+        min-height: 100%; 
+    }
+
     .property {
         width: 30%;
         background-color: white;
@@ -77,7 +83,7 @@ export default {
 
     .img-div {
         width: 100%;
-        /* height: 200px;  */
+        height: 250px; 
         position: relative
     }
 
@@ -117,7 +123,7 @@ export default {
         }
     }
 
-    @media screen and (max-width: 475POSTpx) {
+    @media screen and (max-width: 475px) {
         .property {
             width: 90%;
         }

@@ -22,14 +22,6 @@
       <i class="fas fa-pen"></i>
     </div>
     <newsletter />
-    <div class="display-houses">
-      <h2 class="heading">Latest Properties</h2>
-      <div class="list">
-        <property v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-        <property v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-        <property v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-      </div>
-    </div>
     <h2>Testimonials from clients</h2>
     <div class="testimonials">
       <testimonials />

@@ -4,19 +4,12 @@
             <input type="search" name="search" id="search" placeholder="Search">
         </div>
         <div class="heading"><h2>Homes</h2></div>
-        <div class="homes">
+        <div class="homes" v-if="nosearch">
             <property  id="property" v-for="property in allProperties" v-bind:data='property' />
         </div>
-        <!-- <div class="heading"><h2>Offices</h2></div>
-        <div class="homes">
-            <property id="property" v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-            <property id="property" v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-            <property id="property" v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-            <property id="property" v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-            <property id="property" v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-            <property id="property" v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-            <property id="property" v-bind:data='{type:"Outdoor Pato in Orlando", price:1000000, location:"Orlando", desc:"A luxuriously furnished apartment" }'/>
-        </div> -->
+        <div class="homes" v-else>
+            <property  id="property" v-for="property in searchProperties" v-bind:data='property' />
+        </div>
     </div>
 </template>
 
@@ -25,41 +18,39 @@ import Property from "@/components/Property.vue";
 
 export default {
     name: "Houses",
+    data() {
+        return {
+            nosearch: true
+        }
+    },
     components: {
         Property
     },
-    data() {
-        return {
-            allProperties: []
-        }
-    },
     computed: {
-        storeProperties() {
-           return this.$store.state.properties; 
+        allProperties() {
+            return this.$store.state.allProperties
+        },
+
+        searchProperties() {
+           return this.$store.state.searchResults; 
         }
     },
     mounted() {
         if(this.$route.name === "Search") {
-            console.log("Heyy", this.allProperties)
-            this.allProperties = this.$store.state.searchResults
-            console.log(this.allProperties)
-        } else {
-            console.log("Here")
-            this.allProperties = this.$store.state.properties
+            this.nosearch = false
         }
     },
 
     watch: {
     $route(to, from) {
       if (to.name === "Search") {
-            console.log("Heyy", this.allProperties)
-            this.allProperties = this.$store.state.searchResults
-            console.log(this.allProperties)
-      } else {
-          console.log("Here")
-        this.allProperties = this.$store.state.properties
+            this.nosearch = false
       }
-    }
+    },
+
+    created() {
+        this.$store.dispatch("getAllProperties")
+    },
   }
 }
 </script>
@@ -105,5 +96,24 @@ export default {
     #property {
         width: 23%
     }
+
+    @media screen and (max-width: 900px) {
+        #property {
+            width: 30%;
+        }
+    }
+
+    @media screen and (max-width: 750px) {
+        #property {
+            width: 47%;
+        }
+    }
+
+    @media screen and (max-width: 500px) {
+        #property {
+            width: 90%;
+        }
+    }
+
 
 </style>

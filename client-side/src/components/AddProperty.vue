@@ -71,8 +71,7 @@ export default {
     },
     methods: {
         showMsg(e) {
-            console.log('File testing')
-            console.log(e)
+
             if(e.target.files.length !== 0) {
                 this.imageUpload = "1 file uploaded"
             }
@@ -99,7 +98,7 @@ export default {
             }
             
             const inputImage = document.querySelector("#image")
-            console.log(inputImage)
+
             if (inputImage.files.length === 0) {
                 this.errors.push('Image must be uploaded')
             }
@@ -110,10 +109,8 @@ export default {
         },
         submitProperty() {
             if(this.validateForm()) {
-                console.log("submitting")
                 const inputImage = document.querySelector("#image")
                 let url = `http://localhost:3000/api/property/${this.editMode ? `update/${this.$route.params.id}` : "post"}`;
-                console.log(url)
                 const data = new FormData
                 data.append("type", this.form.type)
                 data.append("status", this.form.status)
@@ -126,8 +123,7 @@ export default {
                 data.append("ownerEmail", this.form.ownerEmail)
                 data.append("ownerPhoneNumber", this.form.ownerPhoneNumber)
                 data.append("image", inputImage.files[0])
-            
-                console.log(localStorage.getItem("token"))
+
                 const token = localStorage.getItem("token");
                 const method = this.editMode ? "put" : "post";
                 axios({
@@ -140,7 +136,6 @@ export default {
                     }
                 })
                 .then(response => {
-                    console.log(response.data)
                     this.$store.dispatch("getAllProperties");
 
                 })
@@ -238,5 +233,10 @@ ul {
     list-style-type: none;
 }
 
+@media screen and (max-width: 750px) {
+    form.add.form {
+        width: 70%;
+    }
+}
 
 </style>
