@@ -2,12 +2,12 @@ const express   = require('express'),
         bps     = require('body-parser'),
         morgan  = require('morgan'),
         cors    = require('cors'),
-        api     = require('../api/api'),
+        api     = require('../api/api/api'),
         path    = require('path'),
         app     = express();
         // cron    = require('node-cron');
         
-require('../api/mailer')
+require('../api/api/mailer')
 
 app.use(bps.json());
 app.use(bps.urlencoded({ extended: true}));
