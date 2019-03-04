@@ -39,7 +39,6 @@ const deleteListing = async(req, res, next) => {
             message: `User deleted with id ${id}`
         })
     } catch(err) {
-        // console.log(err);
         next(err)
     }
 }

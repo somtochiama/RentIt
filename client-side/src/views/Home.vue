@@ -72,8 +72,7 @@ export default {
       return this.$store.state.properties;
     },
     properties() {
-      // const all = this.$store.state.properties;
-      console.log(this.all)
+      
       return this.all.splice(0, 3)
     }
   },

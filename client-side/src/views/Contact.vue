@@ -76,7 +76,7 @@ export default {
                     message: this.message,
                 }
 
-                axios.post('http://localhost:3000/api/contact/post', data)
+                axios.post('api/contact/post', data)
                     .then(response => {
                         console.log(response.data)
                         this.showModal = true

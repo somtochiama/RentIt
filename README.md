@@ -30,7 +30,7 @@ Here are the steps you need to follow to set up this project on your local machi
 4. Create a .env file and input the datails for connecting to your database namely PGUSER( database user), PGPASSWORD (database user password), PGDATABASE (Name of the database), PGHOST (localhost), PGPORT (connection port). Set the connectionString  
 or you can manually input these env variables into your terminal.
 5. After your databse is set up. Run npm install to install all the dependencies.
-6. Run npm run createTables to create the database tables
+6. Run `npm run createTables` to create the database tables
 7. Start the server with npm run start and the server sjould be live on localhost:3000. zap
 8. Open another terminal window and cd into the client-side folder.
 9. Run yarn install to install all dependencies.
@@ -52,4 +52,4 @@ or you can manually input these env variables into your terminal.
 Contributions are very much welcome. Feel free to send in your pull requests.
 
 #Author
-Onyekwere Somtochi
+Onyekwere Somtochi :smiley:

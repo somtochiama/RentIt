@@ -32,7 +32,7 @@ export default {
     methods: {
         deleteProperty() {
             const token = localStorage.getItem("token")
-            axios.delete(`http://localhost:3000/api/property/delete/${this.data.id}`, {
+            axios.delete(`api/property/delete/${this.data.id}`, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

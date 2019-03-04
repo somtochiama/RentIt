@@ -75,7 +75,7 @@ export default {
                     password: this.password
                 }
                 console.log(data)
-                axios.post('http://localhost:3000/api/admin/login', data)
+                axios.post('api/admin/login', data)
                 .then((response) => {
                     console.log(response.data);
                     localStorage.setItem('data', JSON.stringify(response.data.data))

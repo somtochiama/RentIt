@@ -110,7 +110,7 @@ export default {
         submitProperty() {
             if(this.validateForm()) {
                 const inputImage = document.querySelector("#image")
-                let url = `http://localhost:3000/api/property/${this.editMode ? `update/${this.$route.params.id}` : "post"}`;
+                let url = `api/property/${this.editMode ? `update/${this.$route.params.id}` : "post"}`;
                 const data = new FormData
                 data.append("type", this.form.type)
                 data.append("status", this.form.status)
@@ -149,7 +149,7 @@ export default {
         if(this.$route.name === "Edit") {
             this.editMode = true;
             const token = localStorage.getItem("token");            
-            axios.get(`http://localhost:3000/api/property/apartment/${this.$route.params.id}`, {
+            axios.get(`api/property/apartment/${this.$route.params.id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
