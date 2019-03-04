@@ -14,8 +14,6 @@ const client = new Client(connectionString);
 
 // dotenv.config();
 
-console.log(connectionString)
-
 const pool = new Pool({
   connectionString
 });
@@ -82,41 +80,4 @@ module.exports = {
 
 require('make-runnable')
 
-/* const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
-});
 
-pool.on('connect', () => {
-  console.log('connected to the db');
-});
-
-
-pool.query(adminTable, (err, res) => {
-  console.log(err, res);
-});
-
-pool.query(suscriberTable, (err, res) => {
-  console.log(err, res);
-
-});
-
-
-pool.query(reviewsTable, (err, res) => {
-  console.log(err, res);
-});
-
-
-pool.query(ownerTable, (err, res) => {
-  console.log(err, res);
-});
-
-
-pool.query(propertyTable, (err, res) => {
-  console.log(err, res);
-});
-
-
-
-
-module.exports = pool;
- */

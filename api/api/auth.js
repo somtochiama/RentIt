@@ -13,6 +13,5 @@ exports.signToken = (id) => {
 
 
 exports.validateToken = (req, res, next) => {
-    console.log('checking')
     checkToken(req, res, next);
 }
