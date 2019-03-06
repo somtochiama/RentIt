@@ -5,6 +5,7 @@ const express   = require('express'),
         api     = require('../api/api/api'),
         path    = require('path'),
         app     = express();
+        // require('dotenv').config()
         // cron    = require('node-cron');
         
 require('../api/api/mailer')
@@ -32,8 +33,10 @@ app.use((err, req, res, next) => {
 
 if(process.env.NODE_ENV == 'production') {
         app.use(express.static(path.resolve(__dirname, '../api/public')))
+        console.log('Here')
+        console.log(path.resolve(__dirname, '../api/public'))
         
-        app.get(/.*/, (req, res) => res.sendFile(path.resolve(__dirname, '../api/public/index.html')))
+        app.get('/', (req, res) => res.sendFile(path.resolve(__dirname, '../api/public/index.html')))
 }
 
 
