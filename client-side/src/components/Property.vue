@@ -43,6 +43,7 @@ export default {
             .catch(err => console.log(err.response.data))
         },
         editProperty() {
+            console.log(this.show)
             this.show = true;
             this.$router.push(`/edit/${this.data.id}`)
         }

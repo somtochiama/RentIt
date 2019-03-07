@@ -28,7 +28,8 @@ export default {
     },
     computed: {
         allProperties() {
-            return this.$store.state.allProperties
+            console.log(this.$store.state.properties)
+            return this.$store.state.properties
         },
 
         searchProperties() {

@@ -80,16 +80,17 @@ const deleteProperty = async (req, res, next) => {
     }
 }
 
-const updateProperty = async (req, res) => {
+const updateProperty = async (req, res, next) => {
     try {
         const id = parseInt(req.params.id)
         const {status, location, address, price, type, ownerId, desc} = req.body
         const UPDATE_TEXT = 'UPDATE property SET status = $1, location = $2, address = $3, price = $4, type = $5, owner_id = $6, description = $7 WHERE id = $8'
-        pool.query( UPDATE_TEXT,[status, location, address, price, type, ownerId, desc, id])
+        await pool.query( UPDATE_TEXT,[status, location, address, price, type, ownerId, desc, id])
         return res.status(200).json({
             message: `User modified with ID: ${id}`
         })
     } catch(err) {
+        console.log(err)
         return next(err)
     }
 }

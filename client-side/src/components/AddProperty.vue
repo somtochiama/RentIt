@@ -99,7 +99,7 @@ export default {
             
             const inputImage = document.querySelector("#image")
 
-            if (inputImage.files.length === 0) {
+            if (this.$route.name !== "Edit" && inputImage.files.length === 0) {
                 this.errors.push('Image must be uploaded')
             }
 
@@ -110,7 +110,7 @@ export default {
         submitProperty() {
             if(this.validateForm()) {
                 const inputImage = document.querySelector("#image")
-                let url = `api/property/${this.editMode ? `update/${this.$route.params.id}` : "post"}`;
+                let url = `/api/property/${this.editMode ? `update/${this.$route.params.id}` : "post"}`;
                 const data = new FormData
                 data.append("type", this.form.type)
                 data.append("status", this.form.status)
@@ -118,7 +118,7 @@ export default {
                 data.append("address", this.form.address)
                 data.append("location", this.form.location)
                 data.append("price", this.form.price)
-                data.append("ownerId", this.form.ownerId)
+                // data.append("ownerId", this.form.ownerId)
                 data.append("ownerName", this.form.ownerName)
                 data.append("ownerEmail", this.form.ownerEmail)
                 data.append("ownerPhoneNumber", this.form.ownerPhoneNumber)
@@ -137,7 +137,7 @@ export default {
                 })
                 .then(response => {
                     this.$store.dispatch("getAllProperties");
-
+                    this.$router.push('/dashboard')
                 })
                 .catch(err => {
                     console.log (err.response.data)
@@ -149,7 +149,7 @@ export default {
         if(this.$route.name === "Edit") {
             this.editMode = true;
             const token = localStorage.getItem("token");            
-            axios.get(`api/property/apartment/${this.$route.params.id}`, {
+            axios.get(`/api/property/apartment/${this.$route.params.id}`, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
@@ -168,7 +168,7 @@ export default {
                 this.form.ownerPhoneNumber = response.data.owner.phone_number;
             })
             .catch(err => {
-                console.log(err.response.data)
+                console.log(err)
             })
         }
     },
