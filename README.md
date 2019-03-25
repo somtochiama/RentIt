@@ -24,7 +24,7 @@ An apartment that lets admins post property that users can view
 # Set up
 Here are the steps you need to follow to set up this project on your local machine.
 
-1. Clone this repo by running git clone https://github.com/SomtochiAma/RentIt
+1. Clone this repo by running git clone https://github.com/gitomtochiAma/RentIt
 2. cd into the cloned repo, then cd into 'api' folder.
 3. Create a new PostgreSQL database
 4. Create a .env file and input the datails for connecting to your database namely PGUSER( database user), PGPASSWORD (database user password), PGDATABASE (Name of the database), PGHOST (localhost), PGPORT (connection port). Set the connectionString  
