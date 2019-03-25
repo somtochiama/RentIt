@@ -1,4 +1,4 @@
-# RentIt
+# Cozy Cribs
 
 An apartment that lets admins post property that users can view
 

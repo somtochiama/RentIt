@@ -1,7 +1,7 @@
 <template>
     <div id="nav">
       <div id="right-nav">
-        <h1>RentIt</h1>
+        <h1>Cozy Cribs</h1>
         <div class="menu-icon">
           <i class="fa" :class="{'fa-bars':!isOpen, 'fa-times':isOpen }" @click="showNavLinks()">
           </i>

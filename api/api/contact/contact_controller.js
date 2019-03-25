@@ -8,7 +8,7 @@ exports.sendMessage = async (req, res) => {
     const mailOptions = {
         from: email,
         to: process.env.GMAIL,
-        subject: `Rentit Customer Contact ${name}`,
+        subject: `Cozy Cribs Customer Contact ${name}`,
         text: `${message} \n Sender's email: ${email}`
     }
 

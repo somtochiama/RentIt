@@ -21,7 +21,7 @@ cron.schedule('* * 20 * *', async () => {
     const mailOptions = {
         to: emailString,
         subject: 'New apartments from Move in!',
-        text: 'New apartments have been added on rentit.com, checek one might just be for you!'
+        text: 'New apartments have been added on .com, checek one might just be for you!'
     }
 
     try {
