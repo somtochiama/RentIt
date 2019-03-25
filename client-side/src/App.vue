@@ -14,7 +14,10 @@ export default {
   components: {
     Footer,
     NavBar
-  }
+  },
+  created() {
+    this.$store.dispatch("getAllProperties")
+  },
 }
 </script>
 

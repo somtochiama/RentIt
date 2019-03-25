@@ -54,7 +54,7 @@ export default {
         submitForm() {
             if(this.validateForm()) {
                 
-                axios.get('http://localhost:3000/api/property/search', {
+                axios.get('api/property/search', {
                     params: {
                     location: this.location,
                     price: this.price,
@@ -62,10 +62,11 @@ export default {
                     }
                 })
                 .then(res => {
-                    console.log(res.data)
-                    this.$store.commit("updateSearchResults", res.data.data)
+                    (res.data)
+                    this.$store.commit("updateSearchResults", res.data.data);
+                    console.log(this.$store.state.searchResults)
                     // context.commit('updateSearchResults', res.data.data);
-                    console.log(this.$store.state.searcgResults)
+                    console.log(this.$store.state.searchResults)
                     this.$router.push('/search')
                 })
                 .catch(err => {

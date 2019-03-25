@@ -20,11 +20,9 @@ export default new Vuex.Store({
   },
   actions: {
     getAllProperties(context) {
-      console.log("Making");
       axios
-        .get("http://localhost:3000/api/property/all")
+        .get("api/property/all")
         .then(response => {
-          console.log("Gettign properties", response.data.data);
           context.commit("updateProperties", response.data.data);
         })
         .catch(err => {
