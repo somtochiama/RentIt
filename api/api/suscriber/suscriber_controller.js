@@ -31,7 +31,7 @@ const postSuscriber = async (req, res, next) => {
             from: process.env.GMAIL,
             to: email,
             subject: "Welcome to CozyCribs",
-            text: `Thanks for subscribing to the rent it newsletter, No spam as promised. We will only deliver the latest offers to your inbox. \n\n With love, The RentIt Family`
+            text: `Thanks for subscribing to the rent it newsletter, No spam as promised. We will only deliver the latest offers to your inbox. \n\n With love, The COzyCribs Family`
         }
         await sendMail(MAIL_OPTIONS)
         console.log("Email Sent successfully")

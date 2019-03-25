@@ -4,7 +4,7 @@
             <h2>Our Services</h2>
             <p>Connecting house owners and tenants</p>
             <img src="../assets/placeholder.png" alt="" class="icon-img">
-            <p>We willc onnect you faster that other =</p>
+            <p>We will connect you faster to property owners</p>
             <button>Post a property</button>
         </div>
         <div class="cards">
