@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const controller = require('./property_controller');
 const auth = require('../auth')
+const parser = require('../config/cloudinary')
 
 router.get('/all',controller.getAllProperty)
 
-router.post('/post',auth.validateToken, controller.postProperty)
+router.post('/post', auth.validateToken, parser.single("image"), controller.postProperty)
 
 router.delete('/delete/:id',auth.validateToken, controller.deleteProperty)
 

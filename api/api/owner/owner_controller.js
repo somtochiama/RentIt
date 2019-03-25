@@ -13,7 +13,6 @@ const getAllOwner = (req, res) => {
 const postOwner = (req, res) => {
     const {email, phoneNumber} = req.body;
     let id;
-    console.log(email)
     pool.query('SELECT * FROM owner WHERE email = $1', [email], (error, results) => {
         if (error) {
             res.status(500).json({error})

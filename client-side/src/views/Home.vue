@@ -1,5 +1,13 @@
 <template>
   <div class="home">
+    <modal v-if="showModal" @close="showModal=false">
+      <template v-slot:header>
+        <h2>We would love to get feedback</h2>
+      </template>
+      <template v-slot:body>
+        <review/>
+      </template>
+    </modal>
     <div class="box">
       <search-form id="search-form" />
     </div>
@@ -9,6 +17,9 @@
       <div class="list">
         <property v-for="property in properties" v-bind:data='property'/>
       </div>
+    </div>
+    <div id="review-btn" @click="showModal=true">
+      <i class="fas fa-pen"></i>
     </div>
     <newsletter />
     <div class="display-houses">
@@ -38,7 +49,9 @@ Lorem Ipsum because I am out of words,Lorem Ipsum because I am out of words</p>
 import SearchForm from "@/components/SearchForm.vue";
 import Property from "@/components/Property.vue";
 import Newsletter from "@/components/Newsletter.vue";
-import Testimonials from "@/components/Testimonial.vue"
+import Testimonials from "@/components/Testimonial.vue";
+import Review from "@/components/Review.vue"
+import Modal from "@/components/Modal.vue"
 
 import { mapState } from "vuex";
 
@@ -48,7 +61,19 @@ export default {
     SearchForm,
     Property,
     Newsletter,
-    Testimonials
+    Testimonials,
+    Modal,
+    Review
+  },
+  data() {
+    return {
+      showModal: false
+    }
+  },
+  methods: {
+    showSum(){
+      this.showModal = true
+    }
   },
   computed: {
     all() {
@@ -86,6 +111,7 @@ export default {
 
 .testimonials {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   padding: 20px 40px;
 }
@@ -114,9 +140,33 @@ export default {
 .list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around ;
+  justify-content: space-around;
   margin: 40px 7px;
 }
 
+#review-btn {
+  background-color: #66DBB7;
+  border-radius: 50%;
+  position: fixed;
+  z-index: 1;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.72);
+}
 
+@media screen and (max-width: 750px) {
+  #search-form {
+      width: 70%;
+  }
+
+  .display-houses {
+    padding: 20px;
+  }
+}
 </style>

@@ -24,8 +24,8 @@ export default new Vuex.Store({
       axios
         .get("http://localhost:3000/api/property/all")
         .then(response => {
-          console.log("Gettign properties", response.data);
-          context.commit("updateProperties", response.data);
+          console.log("Gettign properties", response.data.data);
+          context.commit("updateProperties", response.data.data);
         })
         .catch(err => {
           console.log("Error", err);

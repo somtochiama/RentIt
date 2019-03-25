@@ -1,6 +1,6 @@
 <template>
     <div class="dashboard">
-        <div class="form">
+        <div class="form-container">
             <h2>Admin Dasboard</h2>
             <button @click="show = !show">Add a new Property</button>
                 <add-property v-if="show"/>
@@ -59,7 +59,7 @@ export default {
         justify-content: space-around;
     }
 
-    .form{
+    .form-container{
         display: flex;
         flex-direction: column;
         align-items: center;

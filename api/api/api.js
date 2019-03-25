@@ -4,8 +4,8 @@ const router       = require('express').Router(),
         reviewRoute = require('./review/review_router'),
         ownerRoute = require('./owner/owner_router'),
         listingRoute = require('./listing/listing_router'),
-        propertyRoute = require('./property/property_router');
-
+        propertyRoute = require('./property/property_router'),
+        contactRoute = require('./contact/contact_router');
 /* router.use('/', (req, res) => {
     res.send("Testing")
 }) */
@@ -16,6 +16,7 @@ router.use('/review', reviewRoute)
 router.use('/owner', ownerRoute)
 router.use('/listing', listingRoute)
 router.use('/property', propertyRoute)
+router.use('/contact', contactRoute)
 
 
         

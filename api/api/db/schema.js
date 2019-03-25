@@ -46,6 +46,8 @@ const propertyTable =
         address VARCHAR(225) NOT NULL,
         price INTEGER NOT NULL,
         type VARCHAR(128) NOT NULL,
+        image_url VARCHAR(128) NOT NULL,
+        image_id VARCHAR(128) NOT NULL,
         owner_id INTEGER REFERENCES owner(id),     
         created_date TIMESTAMP DEFAULT NOW()
         )`;

@@ -1,7 +1,8 @@
 <template>
     <div class="property">
         <div class="img-div">
-            <img src="../assets/img02.jpg" alt="A cozy apartment">
+            <img :src="data.image_url" alt="A cozy apartment">
+            <p class="status">{{data.status}}</p>
         </div>
         <div class="info">
             <h4 class="title">{{ data.type}}</h4>
@@ -30,7 +31,7 @@ export default {
     }, 
     methods: {
         deleteProperty() {
-            const token = localStorage.getItem("_token")
+            const token = localStorage.getItem("token")
             console.log(this.data.id)
             axios.delete(`http://localhost:3000/api/property/delete/${this.data.id}`, {
                 headers: {
@@ -57,6 +58,17 @@ export default {
         width: 30%;
         background-color: white;
         /* height: 350px; */
+        margin-bottom: 30px;
+    }
+
+    button {
+        margin: 0;
+    }
+
+
+    .button {
+        display: flex;
+        justify-content: space-between;
     }
 
     .info {
@@ -66,6 +78,7 @@ export default {
     .img-div {
         width: 100%;
         /* height: 200px;  */
+        position: relative
     }
 
     .title{
@@ -89,5 +102,25 @@ export default {
         font-weight: bold;
     }
 
+    .status {
+        position: absolute;
+        top: 1rem;
+        /* left: 10px; */
+        color: #66DBB7;
+        background: rgba(0,0,0,0.5);
+        padding: 10px 30px;
+    }
+
+    @media screen and (max-width: 750px) {
+        .property {
+            width: 47%;
+        }
+    }
+
+    @media screen and (max-width: 475POSTpx) {
+        .property {
+            width: 90%;
+        }
+    }
 
 </style>

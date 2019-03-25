@@ -88,5 +88,24 @@ export default {
     height: 50%;
   }
 
+  @media screen and (max-width: 750px) {
+      .info{
+        flex-direction: column
+      }
+
+      .about-words{
+          width: 100%
+      }
+
+      .about-img{
+          height: 250px;
+      }
+
+      .images {
+        margin: 0;
+        width: 100%;
+      }
+  }
+
 </style>
 

@@ -1,20 +1,22 @@
 const { Pool, Client } = require('pg');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 const {adminTable, suscriberTable, reviewsTable, propertyTable, ownerTable, listingTable } = require('./schema')
 const connectionString = process.env.DATABASE_URL;
 // console.log(process.env.DATABASE_URL)
 
-dotenv.config();
+// dotenv.config();
 
-const client = new Client();
+const client = new Client(connectionString);
 
 // const { Pool } = require('pg');
 
 // const dotenv = require('dotenv');
 
-dotenv.config();
+// dotenv.config();
 
-const pool = new Pool();
+const pool = new Pool({
+  connectionString
+});
 
 const query = function (text, params){
   return new Promise((resolve, reject) => {
@@ -52,11 +54,14 @@ const dropTables = async () => {
   await client.query('DROP TABLE IF EXISTS admins;');
   console.log('DROPPED TABLE admins')
 
+  await client.query('DROP TABLE IF EXISTS property;');
+  console.log('DROPPED TABLE property')
+
   await client.query('DROP TABLE IF EXISTS houses;');
   console.log('DROPPED TABLE houses');
 
-  await client.query('DROP TABLE IF EXISTS owners;');
-  console.log('DROPPED TABLE owners');
+  await client.query('DROP TABLE IF EXISTS owner;');
+  console.log('DROPPED TABLE owner');
 
   await client.query('DROP TABLE IF EXISTS reviews;');
   console.log('DROPPED TABLE reviews');
@@ -75,41 +80,4 @@ module.exports = {
 
 require('make-runnable')
 
-/* const pool = new Pool({
-  connectionString: process.env.DATABASE_URL
-});
 
-pool.on('connect', () => {
-  console.log('connected to the db');
-});
-
-
-pool.query(adminTable, (err, res) => {
-  console.log(err, res);
-});
-
-pool.query(suscriberTable, (err, res) => {
-  console.log(err, res);
-
-});
-
-
-pool.query(reviewsTable, (err, res) => {
-  console.log(err, res);
-});
-
-
-pool.query(ownerTable, (err, res) => {
-  console.log(err, res);
-});
-
-
-pool.query(propertyTable, (err, res) => {
-  console.log(err, res);
-});
-
-
-
-
-module.exports = pool;
- */

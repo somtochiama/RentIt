@@ -77,4 +77,10 @@ input[type="text"] {
     padding: 20px;
 }
 
+@media screen and (max-width: 750px) {
+    .input-cont {
+        width: 100%
+    }
+}
+
 </style>
