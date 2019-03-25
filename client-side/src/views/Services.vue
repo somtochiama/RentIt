@@ -32,6 +32,10 @@ export default {
 
 <style scoped>
 
+.icon-image {
+    min-height: 100px;
+}
+
 .service-text{
     /* background-color: aqua; */
     height: 70vh;
