@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "createTables": "node api/db/db.js createTables",
-    "dropTables": "node api/db/db.js dropTables",
+    "createTables": "node api/api/db/db.js createTables",
+    "dropTables": "node api/api/db/db.js dropTables",
     "engines": {
       "node": "11.10.0"
     }
